@@ -14,6 +14,13 @@ Use the [Builder Interface](https://readme-icons.vercel.app/) to interactively s
 ### 1.1 Easy search
 ![Image](https://github.com/anthonybenier/readme-icons/blob/main/public/icon_search.gif?raw=true)
 
+### 1.2 Tweak settings
+![Image](https://github.com/anthonybenier/readme-icons/blob/main/public/tweak_settings.gif?raw=true)
+
+### 1.3 Copy code
+![Image](https://github.com/anthonybenier/readme-icons/blob/main/public/easy_copypaste.gif?raw=true)
+
+
 ### 2. Manual URL Construction
 Alternatively, you can construct the URL manually:
 
