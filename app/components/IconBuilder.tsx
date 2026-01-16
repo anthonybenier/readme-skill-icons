@@ -367,8 +367,6 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
 
                             {/* Preview & Code Card */}
                             <div className="glass rounded-3xl overflow-hidden relative group p-1">
-                                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-
                                 {/* Header */}
                                 <div className="p-4 border-b border-white/5 flex items-center justify-between relative z-10">
                                     <h3 className="font-semibold text-zinc-300 flex items-center gap-2">Preview</h3>
@@ -435,14 +433,11 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
             {/* Centered Footer */}
             <footer className="flex-none py-6 border-t border-white/5 bg-transparent backdrop-blur-md z-30">
                 <div className="flex items-center justify-center gap-6 text-zinc-400">
-                    <span className="text-sm">MIT License © Anthony Benier</span>
+                    <span className="text-sm font-light">Made with <span className="text-red-500">♥</span> for GitHub</span>
                     <div className="w-px h-4 bg-zinc-800" />
                     <div className="flex gap-4">
-                        <a href="https://github.com/anthonybenier" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
+                        <a href="https://github.com/anthonybenier/readme-icons" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                             <Github className="w-5 h-5" />
-                        </a>
-                        <a href="https://linkedin.com/in/anthonybenier" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-                            <Linkedin className="w-5 h-5" />
                         </a>
                     </div>
                 </div>
