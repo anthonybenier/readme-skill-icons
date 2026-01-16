@@ -47,6 +47,8 @@ export function GET(req: NextRequest) {
   const perLine = parseInt(searchParams.get('perline') || '15', 10); // Default 15 to allow reasonably long lines
   const size = parseInt(searchParams.get('size') || '48', 10);
 
+  const align = (searchParams.get('align') || 'left') as 'left' | 'center' | 'right';
+
   // Validation constraints
   const safePerLine = Math.max(1, Math.min(perLine, 50));
   const safeSize = Math.max(16, Math.min(size, 128));
@@ -68,7 +70,22 @@ export function GET(req: NextRequest) {
     const col = index % safePerLine;
     const row = Math.floor(index / safePerLine);
 
-    const x = col * (safeSize + gap);
+    // Calculate how many icons are in this specific row
+    const isLastRow = row === numRows - 1;
+    const iconsInThisRow = isLastRow ? (numIcons % safePerLine || safePerLine) : safePerLine;
+
+    // Calculate width of this specific row
+    const rowWidth = iconsInThisRow * safeSize + (iconsInThisRow - 1) * gap;
+
+    // Calculate offset based on alignment
+    let offsetX = 0;
+    if (align === 'center') {
+      offsetX = (width - rowWidth) / 2;
+    } else if (align === 'right') {
+      offsetX = width - rowWidth;
+    }
+
+    const x = col * (safeSize + gap) + offsetX;
     const y = row * (safeSize + gap);
 
     // Theme Logic

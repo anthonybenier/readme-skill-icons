@@ -32,6 +32,7 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
     const [theme, setTheme] = useState<'dark' | 'light'>('dark');
     const [iconSize, setIconSize] = useState(48);
     const [iconsPerLine, setIconsPerLine] = useState(15);
+    const [alignment, setAlignment] = useState<'center' | 'left' | 'right'>('center');
 
     useEffect(() => {
         setIsClient(true);
@@ -66,12 +67,18 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
     if (theme !== 'dark') params.set('t', theme);
     if (iconSize !== 48) params.set('size', iconSize.toString());
     if (iconsPerLine !== 15) params.set('perline', iconsPerLine.toString());
+    if (alignment !== 'center') params.set('align', alignment);
 
     const queryString = params.toString();
     const previewUrl = iconSlugs ? `/api/icons?${queryString}` : null;
     const absoluteUrl = iconSlugs ? `${baseUrl}/api/icons?${queryString}` : '';
 
-    const markdownCode = `[![My Skills](${absoluteUrl})](${baseUrl})`;
+    let markdownCode = `[![My Skills](${absoluteUrl})](${baseUrl})`;
+    if (alignment === 'center') {
+        markdownCode = `<p align="center">\n  ${markdownCode}\n</p>`;
+    } else if (alignment === 'right') {
+        markdownCode = `<p align="right">\n  ${markdownCode}\n</p>`;
+    }
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(markdownCode);
@@ -268,6 +275,25 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
                                         </div>
                                     </div>
 
+                                    {/* Alignment */}
+                                    <div className="space-y-2">
+                                        <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Alignment</label>
+                                        <div className="grid grid-cols-3 gap-2 bg-black/20 p-1 rounded-xl">
+                                            {(['left', 'center', 'right'] as const).map((align) => (
+                                                <button
+                                                    key={align}
+                                                    onClick={() => setAlignment(align)}
+                                                    className={cn(
+                                                        "flex items-center justify-center py-2 rounded-lg text-sm font-medium transition-all capitalize",
+                                                        alignment === align ? "bg-zinc-800 text-white shadow-lg" : "text-zinc-500 hover:text-zinc-300"
+                                                    )}
+                                                >
+                                                    {align}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
                                     {/* Icons Per Line */}
                                     <div className="space-y-2">
                                         <div className="flex justify-between items-center">
@@ -318,7 +344,12 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
                                 </div>
 
                                 {/* Preview Area */}
-                                <div className="p-8 min-h-[160px] flex items-center justify-center bg-black/40 relative z-10 rounded-xl mx-2 mt-2 border border-white/5">
+                                <div className={cn(
+                                    "p-8 min-h-[160px] flex items-center bg-black/40 relative z-10 rounded-xl mx-2 mt-2 border border-white/5",
+                                    alignment === 'left' && "justify-start",
+                                    alignment === 'center' && "justify-center",
+                                    alignment === 'right' && "justify-end"
+                                )}>
                                     {previewUrl ? (
                                         // eslint-disable-next-line @next/next/no-img-element
                                         <img
