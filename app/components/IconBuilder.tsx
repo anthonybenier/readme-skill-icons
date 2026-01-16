@@ -160,10 +160,12 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
 
             {/* Main Content - Independent Scrolling Columns */}
             <div className="flex-1 overflow-hidden relative">
-                <div className="h-full grid grid-cols-1 lg:grid-cols-12 max-w-[1800px] mx-auto w-full">
+                <div className="h-full grid grid-cols-1 lg:grid-cols-12 w-full">
 
                     {/* Left Column: Search & List (Scrollable) */}
-                    <div className="lg:col-span-7 h-full flex flex-col bg-black/20 backdrop-blur-xl border-r border-white/10 relative">
+                    <div className="lg:col-span-7 h-full flex flex-col relative">
+                        {/* Vertical Separator */}
+                        <div className="hidden lg:block absolute right-0 top-[10%] bottom-[10%] w-px bg-gradient-to-b from-transparent via-white/5 to-transparent" />
                         {/* Mobile/Desktop Header optimized for sidebar feeling */}
                         <div className="flex items-center gap-4 mb-6 flex-none px-6 md:px-8 lg:px-12 pt-6 md:pt-8 lg:pt-12">
                             <div className="w-12 h-12 relative flex items-center justify-center">
@@ -192,7 +194,7 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
                                     <input
                                         type="text"
                                         placeholder="Search technologies (e.g. React, Next.js, Docker)..."
-                                        className="w-full pl-12 pr-4 py-4 md:py-5 bg-zinc-900/40 backdrop-blur-md border border-white/5 rounded-2xl focus:bg-zinc-900/60 focus:border-white/20 outline-none transition-all duration-300 text-lg placeholder:text-zinc-600 focus:shadow-[0_0_20px_rgba(255,255,255,0.02)]"
+                                        className="w-full pl-12 pr-4 py-4 md:py-5 bg-zinc-900/90 backdrop-blur-xl border border-zinc-800 rounded-2xl focus:bg-zinc-900 focus:border-zinc-700 outline-none transition-all duration-300 text-lg placeholder:text-zinc-600 focus:shadow-[0_0_20px_rgba(0,0,0,0.5)]"
                                         value={searchQuery}
                                         onChange={(e) => setSearchQuery(e.target.value)}
                                     />
@@ -300,11 +302,8 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
 
                     </div>
 
-                    {/* Right Column: Preview & Configuration (Floating Cards) */}
                     <div className="lg:col-span-5 h-full overflow-y-auto p-4 md:p-6 lg:p-8 relative">
-                        {/* Static Spotlights (Monochrome) */}
-                        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-zinc-800/10 rounded-full blur-[100px] -z-10 pointer-events-none mix-blend-screen" />
-                        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-white/5 rounded-full blur-[100px] -z-10 pointer-events-none mix-blend-screen" />
+                        {/* Static Spotlights Removed for uniformity */}
 
                         <div className="max-w-xl mx-auto space-y-4 pb-20">
                             {/* Configuration Panel */}
@@ -332,7 +331,7 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
                                                 onClick={() => setTheme('light')}
                                                 className={cn(
                                                     "flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium transition-all",
-                                                    theme === 'light' ? "bg-zinc-200 text-black shadow-lg" : "text-zinc-500 hover:text-zinc-300"
+                                                    theme === 'light' ? "bg-zinc-800 text-white shadow-lg" : "text-zinc-500 hover:text-zinc-300"
                                                 )}
                                             >
                                                 <Sun className="w-4 h-4" /> Light
@@ -515,7 +514,7 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
             </div>
 
             {/* Centered Footer */}
-            <footer className="flex-none py-6 border-t border-white/5 bg-transparent backdrop-blur-md z-30">
+            <footer className="flex-none py-6 border-t border-white/5 bg-transparent z-30">
                 <div className="flex items-center justify-center gap-6 text-zinc-400">
                     <span className="text-sm font-light">Made with <span className="text-red-500">♥</span> for GitHub</span>
                     <div className="w-px h-4 bg-zinc-800" />
