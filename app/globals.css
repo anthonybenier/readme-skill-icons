@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+:root {
+  --foreground-rgb: 240, 240, 240;
+  --background-start-rgb: 5, 5, 5;
+  --background-end-rgb: 0, 0, 0;
+  --font-inter: 'Inter', sans-serif;
+}
+
+@theme {
+  --color-zinc-900: #18181b;
+  --color-zinc-800: #27272a;
+  --color-white: #ffffff;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: black;
+  background-image:
+    radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 80% 10%, rgba(168, 85, 247, 0.1) 0%, transparent 30%);
+  min-height: 100vh;
+  /* Font family handled by next/font class usually, but keeping fallback */
+  font-family: var(--font-inter);
+}
+
+@utility glass {
+  @apply bg-zinc-900/40 backdrop-blur-xl border border-white/5 shadow-2xl;
+}
+
+@utility glass-hover {
+  @apply hover:bg-zinc-800/60 hover:border-white/10 transition-all duration-300;
+}
+
+@utility text-glow {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
