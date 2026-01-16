@@ -7,7 +7,7 @@ Generate dynamic, beautiful SVG skill icons for your GitHub Profile README.
 ## Usage
 
 ### 1. Build your Stack
-Use the [Builder Interface](https://your-domain.com) to interactively search, select, and configure your stack.
+Use the [Builder Interface](readme-icons.vercel.app) to interactively search, select, and configure your stack.
 
 ### 2. Manual URL Construction
 Alternatively, you can construct the URL manually:
