@@ -27,6 +27,7 @@ interface BadgeBuilderProps {
 export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
     const [searchQuery, setSearchQuery] = useState('');
     const [isClient, setIsClient] = useState(false);
+    const [imgError, setImgError] = useState(false);
     const [copied, setCopied] = useState(false);
 
     // Default icon (react)
@@ -70,27 +71,43 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
         // Underscore (_) -> __
         // Space ( ) -> _
         const escape = (str: string) => str.replace(/-/g, '--').replace(/_/g, '__').replace(/ /g, '_');
+        const cleanColor = (hex: string) => hex.replace(/^#/, '');
 
         const safeLabel = escape(label || '');
         const safeMessage = escape(message || '');
+        const safeColor = cleanColor(color);
+        const safeLogoColor = cleanColor(logoColor);
 
         // If no label, the format is just Message-Color
-        const path = safeLabel ? `${safeLabel}-${safeMessage}` : safeMessage;
-        const colorPart = color ? `-${color}` : '';
+        // We must encode components to handle special characters like / ? & # which would break the URL structure
+        const encodedLabel = encodeURIComponent(safeLabel);
+        const encodedMessage = encodeURIComponent(safeMessage);
+
+        const path = encodedLabel ? `${encodedLabel}-${encodedMessage}` : encodedMessage;
+        const colorPart = safeColor ? `-${safeColor}` : '';
 
         const url = new URL(`https://img.shields.io/badge/${path}${colorPart}`);
         url.searchParams.set('style', style);
+
         if (selectedIcon) {
             url.searchParams.set('logo', selectedIcon.slug);
         }
-        if (logoColor) {
-            url.searchParams.set('logoColor', logoColor);
+
+        if (safeLogoColor && safeLogoColor !== 'white') { // Optimized: Default logo color often implied or handled better without explicit white sometimes?
+            url.searchParams.set('logoColor', safeLogoColor);
+        } else if (safeLogoColor === 'white') {
+            url.searchParams.set('logoColor', 'white');
         }
 
         return url.toString();
     };
 
     const previewUrl = generateUrl();
+
+    useEffect(() => {
+        setImgError(false);
+    }, [previewUrl]);
+
     const markdownCode = `![${label} ${message}](${previewUrl})`;
 
     const copyToClipboard = () => {
@@ -288,8 +305,14 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                         animate={{ scale: 1, opacity: 1 }}
                                         src={previewUrl}
                                         alt="Badge Preview"
-                                        className="max-w-full h-auto drop-shadow-2xl"
+                                        className={cn("max-w-full h-auto drop-shadow-2xl", imgError ? "hidden" : "block")}
+                                        onError={() => setImgError(true)}
                                     />
+                                    {imgError && (
+                                        <div className="absolute inset-0 flex items-center justify-center text-zinc-500 font-medium text-sm">
+                                            Preview unavailable
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className="p-4 relative z-10 space-y-3">
