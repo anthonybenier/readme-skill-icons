@@ -37,7 +37,7 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
     const [theme, setTheme] = useState<'dark' | 'light'>('dark');
     const [iconSize, setIconSize] = useState(48);
     const [iconsPerLine, setIconsPerLine] = useState(15);
-    const [alignment, setAlignment] = useState<'center' | 'left' | 'right'>('center');
+    const [alignment, setAlignment] = useState<'center' | 'left' | 'right'>('left');
     const [showLabels, setShowLabels] = useState(false);
     const [customLink, setCustomLink] = useState('');
 
@@ -74,7 +74,7 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
     if (theme !== 'dark') params.set('t', theme);
     if (iconSize !== 48) params.set('size', iconSize.toString());
     if (iconsPerLine !== 15) params.set('perline', iconsPerLine.toString());
-    if (alignment !== 'center') params.set('align', alignment);
+    if (alignment !== 'left') params.set('align', alignment);
     if (showLabels) params.set('labels', 'true');
 
     const queryString = params.toString();
@@ -83,10 +83,8 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
     const targetLink = customLink || baseUrl;
 
     let markdownCode = `[![Icons](${absoluteUrl})](${targetLink})`;
-    if (alignment === 'center') {
-        markdownCode = `<p align="center">\n  ${markdownCode}\n</p>`;
-    } else if (alignment === 'right') {
-        markdownCode = `<p align="right">\n  ${markdownCode}\n</p>`;
+    if (alignment === 'center' || alignment === 'right') {
+        markdownCode = `<p align="${alignment}">\n  <a href="${targetLink}">\n    <img src="${absoluteUrl}" alt="Icons" />\n  </a>\n</p>`;
     }
 
     const copyToClipboard = () => {
