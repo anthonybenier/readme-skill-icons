@@ -3,6 +3,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence, Reorder } from 'framer-motion';
 import { Search, Copy, Check, GripVertical, Trash2, Settings, Moon, Sun, Github, Download, Image as ImageIcon } from 'lucide-react';
+import Link from 'next/link';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -165,20 +166,32 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
                         {/* Vertical Separator */}
                         <div className="hidden lg:block absolute right-0 top-[10%] bottom-[10%] w-px bg-gradient-to-b from-transparent via-white/5 to-transparent" />
                         {/* Mobile/Desktop Header optimized for sidebar feeling */}
-                        <div className="flex items-center gap-4 mb-6 flex-none px-6 md:px-8 lg:px-12 pt-6 md:pt-8 lg:pt-12">
-                            <div className="w-12 h-12 relative flex items-center justify-center">
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img
-                                    src="/logo.webp"
-                                    alt="Logo"
-                                    className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]"
-                                />
+                        <div className="flex flex-col gap-6 mb-6 flex-none px-6 md:px-8 lg:px-12 pt-6 md:pt-8 lg:pt-12">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 relative flex items-center justify-center">
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img
+                                        src="/logo.webp"
+                                        alt="Logo"
+                                        className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+                                    />
+                                </div>
+                                <div>
+                                    <h1 className="text-2xl font-bold tracking-tight text-white">
+                                        Readme Icons
+                                    </h1>
+                                    <p className="text-zinc-400 text-base">Make your GitHub README stand out.</p>
+                                </div>
                             </div>
-                            <div>
-                                <h1 className="text-2xl font-bold tracking-tight text-white">
-                                    Readme Icons
-                                </h1>
-                                <p className="text-zinc-400 text-base">Make your GitHub README stand out with this easy & quick icon tool.</p>
+
+                            {/* Navigation Tabs */}
+                            <div className="flex gap-4 border-b border-white/5">
+                                <Link href="/" className="px-4 py-2 text-sm font-medium text-white border-b-2 border-blue-500">
+                                    Skill Icons
+                                </Link>
+                                <Link href="/badges" className="px-4 py-2 text-sm font-medium text-zinc-400 hover:text-zinc-200 transition-colors">
+                                    Badge Builder
+                                </Link>
                             </div>
                         </div>
 
