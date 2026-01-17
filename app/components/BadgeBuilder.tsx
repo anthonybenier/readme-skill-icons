@@ -27,7 +27,6 @@ interface BadgeBuilderProps {
 export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
     const [searchQuery, setSearchQuery] = useState('');
     const [isClient, setIsClient] = useState(false);
-    const [imgError, setImgError] = useState(false);
     const [copied, setCopied] = useState(false);
 
     // Default icon (react)
@@ -41,6 +40,7 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
     const [logoColor, setLogoColor] = useState('white');
     const [style, setStyle] = useState<'flat' | 'flat-square' | 'for-the-badge' | 'plastic' | 'social'>('for-the-badge');
     const [customLink, setCustomLink] = useState('');
+    const [failedUrl, setFailedUrl] = useState<string | null>(null);
 
     useEffect(() => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -104,10 +104,7 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
     };
 
     const previewUrl = generateUrl();
-
-    useEffect(() => {
-        setImgError(false);
-    }, [previewUrl]);
+    const isImgError = failedUrl === previewUrl;
 
     const imageMarkdown = `![${label} ${message}](${previewUrl})`;
     const markdownCode = customLink ? `[${imageMarkdown}](${customLink})` : imageMarkdown;
@@ -346,10 +343,10 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                         animate={{ scale: 1, opacity: 1 }}
                                         src={previewUrl}
                                         alt="Badge Preview"
-                                        className={cn("max-w-full h-auto drop-shadow-2xl", imgError ? "hidden" : "block")}
-                                        onError={() => setImgError(true)}
+                                        className={cn("max-w-full h-auto drop-shadow-2xl", isImgError ? "hidden" : "block")}
+                                        onError={() => setFailedUrl(previewUrl)}
                                     />
-                                    {imgError && (
+                                    {isImgError && (
                                         <div className="absolute inset-0 flex items-center justify-center text-zinc-500 font-medium text-sm">
                                             Preview unavailable
                                         </div>
