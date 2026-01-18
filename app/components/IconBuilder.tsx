@@ -390,7 +390,7 @@ export default function IconBuilder({ allIcons }: IconBuilderProps) {
 
                                         <div className="space-y-2">
                                             <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold flex items-center gap-2">
-                                                Custom Link <span className="text-zinc-600 lowercase font-normal">(optional)</span>
+                                                Target URL <span className="text-zinc-600 lowercase font-normal">(optional)</span>
                                             </label>
                                             <input
                                                 type="url"
