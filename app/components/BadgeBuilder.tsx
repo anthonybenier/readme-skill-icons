@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Copy, Check, Palette, Type } from 'lucide-react';
+import { Search, Copy, Check, Palette, Type, Info } from 'lucide-react';
 import Link from 'next/link';
 import Footer from './Footer';
 import { clsx } from 'clsx';
@@ -352,7 +352,14 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                     <div className="space-y-2">
                                         <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold">Color</label>
                                         <div className="flex gap-3">
-                                            <div className="w-12 h-12 rounded-xl border border-white/10 shrink-0 shadow-lg" style={{ backgroundColor: color.startsWith('#') ? color : `#${color}` }} />
+                                            <div className="relative w-12 h-12 rounded-xl border border-white/10 shrink-0 shadow-lg overflow-hidden group">
+                                                <div className="absolute inset-0 transition-colors" style={{ backgroundColor: /^[0-9a-fA-F]{3,8}$/.test(color.trim()) && !color.startsWith('#') ? `#${color}` : color }} />
+                                                <input
+                                                    type="color"
+                                                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                                    onChange={(e) => setColor(e.target.value.toUpperCase())}
+                                                />
+                                            </div>
                                             <input
                                                 type="text"
                                                 value={color}
@@ -378,6 +385,13 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                                 <div className="space-y-2 pt-4 border-t border-white/5">
                                     <label className="text-xs text-zinc-500 uppercase tracking-widest font-semibold flex items-center gap-2">
                                         Target URL <span className="text-zinc-600 lowercase font-normal">(optional)</span>
+                                        <div className="group relative">
+                                            <Info className="w-3.5 h-3.5 text-zinc-500 hover:text-zinc-300 cursor-help" />
+                                            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-zinc-900 border border-white/10 rounded-lg text-xs text-zinc-300 w-48 text-center shadow-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50 normal-case tracking-normal">
+                                                Makes the badge clickable, redirecting users to this URL.
+                                                <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-zinc-900" />
+                                            </div>
+                                        </div>
                                     </label>
                                     <input
                                         type="url"
