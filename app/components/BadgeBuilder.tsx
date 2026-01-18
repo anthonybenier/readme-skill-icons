@@ -156,9 +156,9 @@ export default function BadgeBuilder({ allIcons }: BadgeBuilderProps) {
                         {/* Header */}
                         <div className="flex flex-col gap-6 mb-6 flex-none px-6 md:px-8 lg:px-12 pt-6 md:pt-8 lg:pt-12">
                             <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 relative flex items-center justify-center">
+                                <div className="w-32 h-32 relative flex items-center justify-center">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                                    <img src="/logo.webp" alt="Logo" className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]" />
+                                    <img src="/readme-icons_logo.png" alt="Logo" className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]" />
                                 </div>
                                 <div>
                                     <h1 className="text-2xl font-bold tracking-tight text-white">Readme Icons</h1>
